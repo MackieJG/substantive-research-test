@@ -1,7 +1,7 @@
 
 const apiUrl = "https://substantive.pythonanywhere.com";
 const productEndPoint = "/product_benchmarks";
-const currencyEndPoint = "/exchange_rate";
+const currencyEndPoint = "/exchange_rates";
 const Headers = {
     "auth-key" : "590e3e17b6a26a8fcda726e2a91520e476e2c894",
   };
@@ -42,7 +42,7 @@ export const currencyInfo = async () => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error:". error);
+        console.error("Error:", error);
         return null;
     }
 };
