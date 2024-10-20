@@ -1,44 +1,58 @@
 import { useEffect, useState } from 'react'
+import { productInfo, currencyInfo } from "./apis/api.jsx";
+import { convertProductToEUR } from "./currency/currency.jsx"
+
 
 function App() {
+  const [currencyData, setCurrencyData] = useState([]);
+  const [productData, setProductData] = useState([]);
 
-  const apiUrl = "https://substantive.pythonanywhere.com";
-  const endPoint = "/product_benchmarks";
-  const Headers = {
-    "auth-key" : "590e3e17b6a26a8fcda726e2a91520e476e2c894",
-  };
-  const [productBenchmarks, setProductBenchmarks] = useState();
+  
+ 
 
-  const getProductBenchmarks = () => {
-    const url = apiUrl + endPoint;
-    fetch(url, {
-      method: "GET",
-      headers: Headers
-    })
-      .then((response) => {
-        if(!response.ok) {
-          throw new Error("Network Response was not Ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setProductBenchmarks(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error)
-      });
-  };
 
   useEffect(() => {
-    getProductBenchmarks();
+    
+    const fetchCurrencyInfo = async () => {
+      const data = await currencyInfo();
+      setCurrencyData(data.exchange_rates);
+    };
+
+    const fetchProductInfo = async () => {
+      const data = await productInfo();
+      setProductData(data.product_benchmarks);
+    };
+    fetchCurrencyInfo();
+    fetchProductInfo();
   }, []);
+
+  const handleTestConversion = () => {
+    if (currencyData.length > 0 && productData.length > 0) {
+      const productToTest = productData[1];
+      const convertedProduct = convertProductToEUR(productToTest, currencyData);
+
+      console.log("Original Product: ", productToTest);
+      console.log("Converted Product: ", convertedProduct);
+    } else {
+      console.log("Data is still loading...");
+    } 
+  };
 
   return (
     <>
-     <h1 class="text-red-500">Hello World</h1>
+     <h1 className="text-red-500">Hello World</h1>
      <div>
-      {productBenchmarks ? (
-        <pre>{JSON.stringify(productBenchmarks, null, 2)}</pre>
+      <h1>Currency Conversion Test</h1>
+      <button onClick={handleTestConversion}>Test Conversion</button>
+     </div>
+     <div>
+      {currencyData ? (
+        <pre>{JSON.stringify(currencyData, null, 2)}</pre>
+      ) : (
+        <p>loading...</p>
+      )}
+      {productData ? (
+        <pre>{JSON.stringify(productData, null, 2)}</pre>
       ) : (
         <p>loading...</p>
       )}
