@@ -1,8 +1,43 @@
-# React + Vite
+# Substantive Research Payment Analysis Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React application designed for Substantive Research clients to analyze product payments, benchmark comparisons, and visualize payment trends over the years. 
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Product Payment List**: Displays product payments and benchmarks in Euros, highlighting whether payments are over or under benchmarks.
+- **Payment Trend Chart**: Visualizes payment trends for each product over multiple years.
+- **Currency Conversion**: Converts payment and benchmark amounts to Euros based on historical exchange rates.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+
+## Getting Started
+
+Follow the steps below to get the application up and running on your local machine.
+
+### 1. Clone the Repository
+
+```bash
+git clone
+cd substantive-research-test
+```
+### 2. Install Dependencies
+Run the following command to install the necessary packages:
+```bash
+npm install
+```
+
+### 3. Run the Application
+Start the developer server:
+```bash
+npm run dev
+```
+Technologies Used
+- React
+- Recharts
+- Vite
+
+
+
