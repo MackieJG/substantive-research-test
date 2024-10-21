@@ -8,23 +8,24 @@ const ProductList = ({ products }) => {
                     <tr>
                         <th>Provider</th>
                         <th>Product Name</th>
-                        <th>Original Payment</th>
-                        <th>Converted Payment</th>
-                        <th>Original Benchmark</th>
-                        <th>Converted Benchmark (EUR)</th>
+                        <th>Payment (EUR)</th>
+                        <th>Benchmark (EUR)</th>
+                        <th>Difference (Benchmark - Payment)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map(product => (
+                    {products.map(product => {
+                        const difference = product.benchmarkEUR - product.paymentEUR;
+                        return (
                         <tr key={products.id}>
                             <td>{product.provider_name}</td>
                             <td>{product.product_name}</td>
-                            <td>{product.payment}</td>
                             <td>{product.paymentEUR.toFixed(2)}</td>
-                            <td>{product.benchmark}</td>
                             <td>{product.benchmarkEUR.toFixed(2)}</td>
+                            <td>{difference.toFixed(2)}</td>
                             </tr>
-                        ))}
+                        );
+                        })}
                 </tbody>
             </table>
         </div>
