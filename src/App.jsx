@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import { productInfo, currencyInfo } from "./apis/api.jsx";
 import { convertProductToEUR } from "./currency/currency.jsx"
+import ProductList from './components/productList.jsx';
 
 
 function App() {
+
   const [currencyData, setCurrencyData] = useState([]);
   const [productData, setProductData] = useState([]);
-
+  const [convertedProducts, setConvertedProducts] = useState([]);
   
- 
-
-
   useEffect(() => {
     
     const fetchCurrencyInfo = async () => {
@@ -26,37 +25,23 @@ function App() {
     fetchProductInfo();
   }, []);
 
-  const handleTestConversion = () => {
+  useEffect(() => {
     if (currencyData.length > 0 && productData.length > 0) {
-      const productToTest = productData[1];
-      const convertedProduct = convertProductToEUR(productToTest, currencyData);
-
-      console.log("Original Product: ", productToTest);
-      console.log("Converted Product: ", convertedProduct);
-    } else {
-      console.log("Data is still loading...");
-    } 
-  };
+      const converted = productData.map(product => convertProductToEUR(product, currencyData));
+      setConvertedProducts(converted);
+    }
+  }, [currencyData, productData]);
 
   return (
     <>
      <h1 className="text-red-500">Hello World</h1>
-     <div>
-      <h1>Currency Conversion Test</h1>
-      <button onClick={handleTestConversion}>Test Conversion</button>
-     </div>
-     <div>
-      {currencyData ? (
-        <pre>{JSON.stringify(currencyData, null, 2)}</pre>
+    <div>
+      {currencyData.length > 0 && productData.length > 0 ? (
+        <ProductList products={convertedProducts} />
       ) : (
-        <p>loading...</p>
+        <p>Loading data...</p>
       )}
-      {productData ? (
-        <pre>{JSON.stringify(productData, null, 2)}</pre>
-      ) : (
-        <p>loading...</p>
-      )}
-     </div>
+      </div>
     </>
   )
 }
