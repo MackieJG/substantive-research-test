@@ -37,6 +37,7 @@ npm run dev
 Technologies Used
 - React
 - Recharts
+- TailwindCSS
 - Vite
 
 
