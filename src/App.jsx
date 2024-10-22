@@ -44,29 +44,30 @@ function App() {
   }, [convertedProducts])
 
   return (
-    <>
-     <h1 className="text-red-500">Hello World</h1>
+    
     <div>
       {currencyData.length > 0 && productData.length > 0 ? (
         <ProductList products={convertedProducts} />
       ) : (
         <p>Loading data...</p>
       )}
-      </div>
-      <div>
-        <h2>Payment Trend Chart</h2>
+
+      <div className="mt-10">
+        <h2 className="text-xl font-bold text-center pb-6">Payment Trend Chart</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {chartData.length > 0 ? (
           chartData.map(product => (
-            <div key={product.productName}>
-              <h3>{product.productName}</h3>
+            <div key={product.productName} className="border p-4 shadow-lg rounded min-w-[400px] ml-2">
+              <h3 className="text-lg font-semibold text-center mb-2 mt-2">{product.productName}</h3>
               <PaymentTrendChart productData={product.payments} />
               </div>
           ))
         ) : (
           <p>Loading chart data...</p>
         )}
+        </div>
       </div>
-    </>
+      </div>
   );
 }
 
